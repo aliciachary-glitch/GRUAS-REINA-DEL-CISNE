@@ -1,0 +1,14 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Solo este aviso PUBLICO se puede leer desde la página.
+    // Los cambios se hacen en la consola por el propietario del proyecto.
+    match /avisos/principal {
+      allow get: if true;
+      allow list, create, update, delete: if false;
+    }
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
